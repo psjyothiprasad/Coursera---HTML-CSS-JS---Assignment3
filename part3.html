@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matching Game</title>
+	<style type="text/css">
+		body {
+			margin: 0;
+		}
+		header {
+			margin-left: 30px;
+		}
+		div {
+			position: absolute;
+			width: 45%;
+			height: 75%;
+		}
+		#rightSide {
+			left: 45%;
+			border-left: 1px solid #000;
+		}
+		img {
+			position: absolute;
+		}
+		div:hover {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>Matching Game</h2>
+		<p>Click on extra smiling face on the left.</p>
+	</header>
+	<div id="leftSide"></div>
+	<div id="rightSide"></div>
+</body>
+<script type="text/javascript">
+	const NUMBER_OF_FACES = 5;
+	const IMG_SRC = "http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+	let theLeftSide = document.getElementById("leftSide");
+	let theRightSide = document.getElementById("rightSide");
+	let numberOfFaces = NUMBER_OF_FACES;
+	let theBody = document.getElementsByTagName("body")[0];
+	window.addEventListener("load", generateFaces);
+	//theBody.addEventListener("click", gameOver);
+	function generateFaces() {
+		while (theLeftSide.lastChild) {
+			theLeftSide.removeChild(theLeftSide.lastChild);
+		}
+		if (theRightSide.lastChild) {
+			theRightSide.removeChild(theRightSide.lastChild);
+		}
+		for (let i = 0; i < numberOfFaces; i++) {
+			let img = document.createElement("img");
+			img.src = IMG_SRC;
+			img.style.top = Math.floor(Math.random() * (theLeftSide.clientHeight - img.height)) + "px";
+			img.style.left = Math.floor(Math.random() * (theLeftSide.clientWidth - img.width)) + "px";
+			theLeftSide.appendChild(img);
+		}
+		let theLeftSideImages = theLeftSide.cloneNode(true);
+		theLeftSideImages.removeChild(theLeftSideImages.lastChild);
+		theRightSide.appendChild(theLeftSideImages);
+		//theLeftSide.lastChild.addEventListener("click", nextLevel);
+	}
+</script>
+</html>
